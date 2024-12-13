@@ -15,7 +15,7 @@ def site_configs(request):
     domain = site_settings.site_domain
 
     for url in APIConfigs.objects.all():
-        urls[url.name] = f"{domain}:8000/{url.url}"
+        urls[url.name] = f"{domain}/{url.url}"
 
     settings_serializer = SiteSettingsSerializer(site_settings)
 

@@ -13,8 +13,8 @@ class Command(BaseCommand):
 
         site_config = SiteSettings.objects.create(
             site_name="Oculos de Fábrica",
-            site_domain="http://localhost",
-            default_image_url="unknow",
+            site_domain="http://localhost:8000",
+            default_image_url="/media/default_image_for_glasses.png",
             filter_1="Categorias",
             param_1="categoria",
             filter_2="Cores",
@@ -39,7 +39,7 @@ class Command(BaseCommand):
                 "(PAYMENT) get products information"],
             ["change", "api/auth/user/password/change",
                 "(AUTH) password change"],
-            ["reset_code", "api/auth/user/password/reset-code",
+            ["reset_code", "api/auth/user/password/reset_code",
                 "(AUTH) reset code"],
             ["user_profile", "api/auth/profile/user/",
                 "(AUTH) user profile data"],

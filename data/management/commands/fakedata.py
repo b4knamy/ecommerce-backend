@@ -18,7 +18,8 @@ class Command(BaseCommand):
                            "Oculos de Leitura", "Oculos Esportivos", "Óculos de Luz Azul"]
             _models = ["Aviador", "Wayfarer", "Redondo", "Gato", "Retangular"]
             _shapes = ["Oval", "Quadrado", "Redondo", "Hexagonal", "Borboleta"]
-            _colors = ["Preto", "Amarelo", "Verde", "Vermelho", "Laranja"]
+            _colors = [["Preto", "rgb(0, 0, 0)"], ["Amarelo", "rgb(241, 235, 1)"], [
+                "Verde", "rgb(95, 244, 1)"], ["Vermelho", "rgb(230, 20, 1)"], ["Laranja", "rgb(255, 172, 1)"]]
             _brands = ["Ana Hickmann", "Chilli Beans",
                        "Ray-Ban", "Oakley", "Gucci"]
 
@@ -27,7 +28,7 @@ class Command(BaseCommand):
                 new.save()
 
             for _ in _colors:
-                new = Color.objects.create(name=_)
+                new = Color.objects.create(name=_[0], css_color=_[1])
                 new.save()
 
             for _ in _models:
@@ -58,8 +59,8 @@ class Command(BaseCommand):
                 quantitaty=randint(1, 20),
                 gender=sex[randint(0, 2)],
                 installments_amount=randint(100, 199),
-                installments_count=randint(1, 9),
-                discount=randint(10, 40),
+                installments_count=12,
+                discount=randint(10, 40) if is_promo else 0,
                 is_sample=True if is_promo else False,
                 is_promo=is_promo,
                 bridge=fk.text(15),

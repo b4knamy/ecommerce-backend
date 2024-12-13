@@ -38,7 +38,7 @@ class User(AbstractUser, AbstractModel):
         _("last name"), max_length=150, blank=True, validators=[MinLengthValidator(3)])
 
     PASSWORD_VALITADOR = RegexValidator(
-        r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$',
+        r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%&_])[A-Za-z\d!@#$%&_]+$',
         _("A senha precisa conter no mínimo: um numero, uma letra minuscula, maiuscula e um caractere especial."))
     username = None
     date_joined = None

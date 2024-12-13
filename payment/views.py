@@ -41,20 +41,31 @@ class PaymentCheckout(APIView):
     @authentication_classes(JWTAuthentication)
     @permission_classes(IsAuthenticated)
     def post(self, request):
+        print("passei aq")
         site_settings = SiteSettings.objects.all().first()
+        print("passei aq")
 
+        print(site_settings.external_domain)
         try:
             products, user_id = self.fetch_products_related_data(request.data)
 
             line_items, metadata = self.create_session_line_items(
                 products, user_id)
-            checkout_session = stripe.checkout.Session.create(
-                line_items=line_items,
-                metadata=metadata,
-                mode='payment',
-                success_url=site_settings.external_domain + '/checkout/result?success=true',
-                cancel_url=site_settings.external_domain + '/checkout/result?canceled=true',
-            )
+
+            print(line_items, metadata)
+            print("passei aq")
+            try:
+                checkout_session = stripe.checkout.Session.create(
+                    line_items=line_items,
+                    metadata=metadata,
+                    mode='payment',
+                    success_url=site_settings.external_domain + '/checkout/result?success=true',
+                    cancel_url=site_settings.external_domain + '/checkout/result?canceled=true',
+                )
+            except Exception as error:
+                print(error)
+
+            print("passei aq")
         except Exception as e:
             return str(e)
 

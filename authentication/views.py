@@ -76,6 +76,7 @@ class CookieTokenRefreshView(TokenRefreshView):
 
     def finalize_response(self, request, response, *args, **kwargs):
         if response.data.get('refresh'):
+            print(response.data)
             cookie_max_age = 3600 * 24 * 14  # 14 days
             response.set_cookie(
                 'refresh_token', response.data['refresh'], max_age=cookie_max_age, httponly=True)
@@ -140,7 +141,8 @@ class UserProfileView(APIView):
         return first_user == second_user
 
     def update_user_data(self, request, user: User):
-        serializer = UserProfileSerializer(user, data=request.data, partial=True)
+        serializer = UserProfileSerializer(
+            user, data=request.data, partial=True)
 
         if serializer.is_valid(raise_exception=True):
             serializer.save()
